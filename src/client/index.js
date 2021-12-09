@@ -1,5 +1,5 @@
 import { app } from './js/app'
-import "./styles/index.scss"
+import "./styles/header.scss"
 
 export {
     app
