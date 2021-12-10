@@ -1,17 +1,35 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.headlogos {
+    margin-left: 200px;
+    margin-bottom: 50px;
+}
+
 .headertrip {
     display: flex;
     justify-content: space-around;
 }
 
-button {
+#add_trip {
     background-color: transparent;
-    width: 100px;
-    height: 50px;
-    // color: yellow;
-    font-size: 20px;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
     border-radius: 25px;
     &:hover {
-        background-color: red;
+        // background-color: ;
+        border: 1px solid pink;
+        background-color: rgb(237, 154, 148);
+        color: white;
+        ;
+        text-decoration: none;
     }
-    // border-radius: 25%;
+    span {
+        font-size: 20px;
+        font-weight: bolder;
+    }
 }

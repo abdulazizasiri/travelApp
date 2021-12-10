@@ -1,0 +1,90 @@
+    .trips {
+        width: 100%;
+        background-color: rgb(237, 154, 148);
+        height: 500px;
+        .cardgrid {
+            display: grid;
+            grid-template-areas: "img img img img info info info info";
+            .imagepart {
+                grid-area: img;
+                background-color: yellow;
+                height: 500px;
+            }
+            .infopart {
+                grid-area: info;
+                background-color: rgb(55, 0, 255);
+                height: 500px;
+            }
+        }
+    }
+    
+    .modal-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba( 0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s opacity 0.5s;
+    }
+    
+    .bg-active {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .modal-bg {
+        .close {
+            cursor: pointer;
+            position: relative;
+            background-color: gray;
+            color: white;
+            left: 200px;
+            top: 50px;
+            padding: 10px;
+            border-radius: 50%;
+            /* margin: 0; */
+            ;
+        }
+    }
+    
+    .modal {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        display: flex;
+        padding: 50px;
+        margin-bottom: 50px;
+        flex-direction: column;
+        background-color: white;
+        height: 30%;
+        width: 30%;
+        ;
+        justify-content: space-around;
+    }
+    
+    #add_City {
+        background-color: transparent;
+        width: 150px;
+        height: 40px;
+        text-align: center;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 25px;
+        &:hover {
+            // background-color: ;
+            border: 1px solid pink;
+            background-color: rgb(237, 154, 148);
+            color: white;
+            ;
+            text-decoration: none;
+        }
+        span {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+    }

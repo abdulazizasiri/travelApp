@@ -5,6 +5,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
     // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
     // const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const FileLoader = require('file-loader')
 
 module.exports = {
     entry: './src/client/index.js',
@@ -25,6 +26,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: "file-loader"
+
             }
         ]
     },
@@ -38,6 +44,9 @@ module.exports = {
             template: "./src/client/views/index.html",
             filename: "./index.html",
         }),
+        // new FileLoader({
+        //     template: "./src/client/media/travelimage.png"
+        // }),
 
     ]
 }

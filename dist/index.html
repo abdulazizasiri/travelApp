@@ -9,18 +9,34 @@
 
 <body>
     <header>
-        <h1>
-            Travel Planner
-        </h1>
+        <div class="headlogos">
+            <h1>
+                Travel Planner
+            </h1>
+
+        </div>
+        <div id="popup-1" class="popup">
+            <div class="overlay"></div>
+            <div class="cotent">
+                <div class="close-btn" onclick="return Client.showPopup()">&times;</div>
+                <h2> Search for a destination</h2>
+                <p> I am going to build a form</p>
+            </div>
+        </div>
+
         <div class="headertrip">
             <h3> My Trips: </h3>
-            <button> <i class="fa fa-plus" aria-hidden="true"></i>
-                 add trip</button>
+            <button onclick="return Client.showPopup()"> <span>&#43;</span>add trip</button>
         </div>
+
     </header>
 
     <div class="trips">
+        <div class="cardgrid">
+            <div class="imagepart"> </div>
+            <div class="infopart"> </div>
 
+        </div>
     </div>
 
     <footer>

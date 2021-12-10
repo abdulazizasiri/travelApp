@@ -9,18 +9,39 @@
 
 <body>
     <header>
-        <h1>
-            Travel Planner
-        </h1>
+        <div class="headlogos">
+            <h1>
+                Travel Planner
+            </h1>
+
+        </div>
+
+
+        <div class="modal-bg">
+            <div onclick="return Client.showPopup(event,2)" class="close">&times;</div>
+            <div class="modal">
+
+                <h2>Choose Your Travel Destenation</h2>
+                <label for="name">Travel Destenation Name: </label>
+                <input id="name" type="text" placeholder="City Name" name="name">
+
+                <button id="add_City" onclick="return Client.showPopup(event,3)"> Add </button>
+            </div>
+        </div>
+
         <div class="headertrip">
             <h3> My Trips: </h3>
-            <button> <i class="fa fa-plus" aria-hidden="true">&plus</i>
-                 add trip</button>
+            <button id="add_trip" onclick="return Client.showPopup(event,1)"> <span>&#43;</span>add trip</button>
         </div>
+
     </header>
 
     <div class="trips">
+        <div class="cardgrid">
+            <div class="imagepart"> </div>
+            <div class="infopart"> </div>
 
+        </div>
     </div>
 
     <footer>
