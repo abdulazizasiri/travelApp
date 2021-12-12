@@ -15,18 +15,25 @@
             </h1>
 
         </div>
-        <div id="popup-1" class="popup">
-            <div class="overlay"></div>
-            <div class="cotent">
-                <div class="close-btn" onclick="return Client.showPopup()">&times;</div>
-                <h2> Search for a destination</h2>
-                <p> I am going to build a form</p>
+
+
+        <div class="modal-bg">
+            <div onclick="return Client.showPopup(event,2)" class="close">&times;</div>
+            <div class="modal">
+
+                <h2>Choose Your Travel Destenation</h2>
+                <small id="result"></small>
+                <label for="name">Travel Destenation Name: </label>
+                <input id="name" type="text" placeholder="City Name" name="name">
+                <label for="trip">Trip Date:</label>
+                <input type="date" id="trip_date" name="trip" value="">
+                <button id="add_City" onclick="return Client.showPopup(event,3)"> Add </button>
             </div>
         </div>
 
         <div class="headertrip">
             <h3> My Trips: </h3>
-            <button onclick="return Client.showPopup()"> <span>&#43;</span>add trip</button>
+            <button id="add_trip" onclick="return Client.showPopup(event,1)"> <span>&#43;</span>add trip</button>
         </div>
 
     </header>
