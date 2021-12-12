@@ -9,7 +9,7 @@
 //     }
 // })
 
-import { fetchKeys } from "../js/app"
+import { fetchData } from "../js/app"
 
 function showPopup(event, code) {
     let button = document.getElementById("add_City")
@@ -35,6 +35,7 @@ function showPopup(event, code) {
 
     if (code === 3) {
         // let value = document.getElementById("modal-bg")
+        let daysDiff = -1
         console.log("Clicked addd trips")
         let inputField = document.getElementById("name")
             // dateInput.value = ""
@@ -52,14 +53,38 @@ function showPopup(event, code) {
             result.style.color = "red"
         } else {
             var today = new Date()
-            var currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-            console.log("Current date " + currentDate)
-            console.log("Entered data " + dateInput.value)
+                // const date1 = new Date('7/13/2010');
+                // 
+            var checkCurrent = today.getFullYear() + '-' + today.getDate() + '-' + (today.getMonth() + 1);
+
+            var currentDate = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+            // console.log("Current date " + currentDate)
+            // console.log("Entered data " + dateInput.value)
+            // daysDiff = dateInput.value - currentDate
+            var enteredDate = new Date(dateInput.value)
+                // console.log("Entered date " + enteredDate)
+            let formedDate = (enteredDate.getMonth() + 1) + '/' + enteredDate.getDate() + '/' + enteredDate.getFullYear();
+            console.log("Entered date " + formedDate)
+            console.log("My date " + currentDate)
+            console.log("Type " + typeof formedDate)
+            console.log("Type 2 " + typeof currentDate)
+            const date1 = new Date(currentDate);
+            const date2 = new Date(enteredDate);
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            console.log(diffTime + " milliseconds");
+            console.log(diffDays + " days");
+            daysDiff = diffDays
+                // const diffTime = Math.abs(formedDate - currentDate);
+                // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                // console.log(diffTime + " milliseconds");
+                // console.log(diffDays + " days");
             result.innerText = ''
             let url = 'http://localhost:8000/getAllKeys'
             let geoNamesURL = ""
             let results = getKeys(url)
-            if (dateInput.value < currentDate) {
+
+            if (dateInput.value < checkCurrent) {
                 console.log("The date is not proper")
                 result.innerText = "The date is not proper, please choose future dates"
                 result.style.marginBottom = "5px"
@@ -86,8 +111,11 @@ function showPopup(event, code) {
                             console.log("Country Found " + country)
                             console.log("LAt Found " + lat)
                             console.log("Long Found " + lng)
-                            let objectLocation = { city: city, lat: lat, lng: lng, country: country }
-                            console.log("Objct Location " + objectLocation)
+                                // "weather_key": weatherbitandImageKeys.application_id,
+                                // "pixabay_key":
+                            let objectLocation = { city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
+                            console.log("Objct Location " + JSON.stringify(objectLocation))
+                            fetchData(objectLocation)
                         }
                     })
                     // validateDate()
