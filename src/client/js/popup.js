@@ -113,7 +113,7 @@ function showPopup(event, code) {
                             console.log("Long Found " + lng)
                                 // "weather_key": weatherbitandImageKeys.application_id,
                                 // "pixabay_key":
-                            let objectLocation = { city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
+                            let objectLocation = { city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weatherKey, dayasDiff: daysDiff }
                             console.log("Objct Location " + JSON.stringify(objectLocation))
                             fetchData(objectLocation)
                         }

@@ -1,10 +1,15 @@
 function fetchData(data) {
     console.log("DATA " + JSON.stringify(data))
 
-    var imageResult = getImageRelated(data.city, data.imageKey) // 
-        // var tempResult = getWeatherInfoRelated(data.lat, data.lng)
+    let imageResult = getImageRelated(data.city, data.imageKey) // 
+    let tempResult = getWeatherInfoRelated(data.lat, data.lng, data.weatherKey)
 }
+async function getWeatherInfoRelated(lat, lng, tempkey) {
+    console.log("Lat: " + lat)
+    console.log("Long: " + lng)\ let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${tempkey}`
 
+    console.log("url   Yemp " + url)
+}
 async function getImageRelated(city, imageKey) {
     let url = `https://pixabay.com/api/?key=${imageKey}&q=${city}&image_type=photo&pretty=true`
     console.log("URL Passed " + url)
