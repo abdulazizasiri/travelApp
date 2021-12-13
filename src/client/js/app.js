@@ -6,7 +6,8 @@ function fetchData(data) {
 }
 async function getWeatherInfoRelated(lat, lng, tempkey) {
     console.log("Lat: " + lat)
-    console.log("Long: " + lng)\ let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${tempkey}`
+    console.log("Long: " + lng)
+    let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${tempkey}`
 
     console.log("url   Yemp " + url)
 }
