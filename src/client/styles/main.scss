@@ -1,3 +1,6 @@
+    // * {
+    //     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    // }
     .trips {
         width: 100%;
         background-color: rgb(237, 154, 148);
@@ -16,8 +19,21 @@
                 // background-color: rgb(55, 0, 255);
                 height: 500px;
                 button {
-                    width: 200px;
+                    width: 150px;
+                    height: 30px;
+                    text-align: center;
+                    font-size: 15px;
+                    cursor: pointer;
+                    // border-radius: 25px;
+                    // ;
+                    border: 2px solid white;
+                    cursor: pointer;
+                    background: transparent;
+                    // back
                 }
+                // small {
+                //     display: block;
+                // }
             }
         }
     }
