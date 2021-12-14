@@ -21,9 +21,13 @@ function fetchData(data) {
     buttonContainer.appendChild(removeButton)
 
     let alltrips = document.getElementsByClassName("trips")[0]
-    let tripCard = document.getElementsByClassName('cardgrid')[0]
-    let infoPart = document.getElementsByClassName("infopart")[0]
+        // let tripCard = document.getElementsByClassName('cardgrid')[0]
+    let tripCard = document.createElement("DIV")
+    tripCard.classList.add("cardgrid")
 
+    // let infoPart = document.getElementsByClassName("infopart")[0]
+    let infoPart = document.createElement("DIV")
+    infoPart.classList.add("infopart")
     let imageResult = getImageRelated(data.city, data.imageKey) //
     imageResult.then(function(dataImage) {
         newImg.style.backgroundImage = `url(${dataImage.hits[0].webformatURL})`
