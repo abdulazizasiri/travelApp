@@ -29,13 +29,13 @@ console.log("API Key 1 " + weatherbitandImageKeys.application_id)
 console.log("Api key 2 " + weatherbitandImageKeys.pixaby_key)
 console.log("Api key 3 " + weatherbitandImageKeys.geo_userName)
 
-app.get("/", function(req, res) {
-    res.sendFile(path.resolve('dist/index.html'))
-})
+// app.get("/", function(req, res) {
+//     res.sendFile(path.resolve('dist/index.html'))
+// })
 
 app.get("/getAllKeys", function(req, res) {
     let keyObj = {
-        "weatherKey": weatherbitandImageKeys.application_id,
+        "weather_key": weatherbitandImageKeys.application_id,
         "pixabay_key": weatherbitandImageKeys.pixaby_key,
         "geo_userName": weatherbitandImageKeys.geo_userName,
         "code": 200
