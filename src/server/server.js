@@ -29,9 +29,9 @@ console.log("API Key 1 " + weatherbitandImageKeys.application_id)
 console.log("Api key 2 " + weatherbitandImageKeys.pixaby_key)
 console.log("Api key 3 " + weatherbitandImageKeys.geo_userName)
 
-// app.get("/", function(req, res) {
-//     res.sendFile(path.resolve('dist/index.html'))
-// })
+app.get("/", function(req, res) {
+    res.sendFile(path.resolve('dist/index.html'))
+})
 
 app.get("/getAllKeys", function(req, res) {
     let keyObj = {
@@ -41,6 +41,12 @@ app.get("/getAllKeys", function(req, res) {
         "code": 200
     }
     return res.json(keyObj)
+})
+
+// 
+app.delete("/:id", function(req, res) {
+    let id = req.query.id
+    console.log("the id to be deleted: " + id)
 })
 
 
