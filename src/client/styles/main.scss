@@ -4,12 +4,13 @@
     .trips {
         width: 100%;
         background-color: rgb(199, 159, 156);
+        display: flex;
+        flex-direction: column;
         height: 100vh;
         .cardgrid {
             border: 1px solid black;
-            ;
             display: grid;
-            // grid-template-areas: "img img img img info info info info";
+            grid-template-areas: "img img img img info info info info";
             .imagepart {
                 grid-area: img;
                 width: 100%;
