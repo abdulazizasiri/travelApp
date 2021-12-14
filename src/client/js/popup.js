@@ -14,10 +14,10 @@ import { fetchData } from "../js/app"
 function showPopup(event, code) {
     let button = document.getElementById("add_City")
     let dateInput = document.getElementById("trip_date")
-
-    // var date = new Date();
-    // date.setMonth(date.getMonth() - 1, 1);
-    // $('#datepicker').datepicker({defaultDate: date});
+    let currentData = -1
+        // var date = new Date();
+        // date.setMonth(date.getMonth() - 1, 1);
+        // $('#datepicker').datepicker({defaultDate: date});
 
     if (code === 1) {
         console.log("Event " + event)
@@ -113,7 +113,7 @@ function showPopup(event, code) {
                             console.log("Long Found " + lng)
                                 // "weather_key": weatherbitandImageKeys.application_id,
                                 // "pixabay_key":
-                            let objectLocation = { city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weatherKey, dayasDiff: daysDiff }
+                            let objectLocation = { tripDate: formedDate, city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
                             console.log("Objct Location " + JSON.stringify(objectLocation))
                             fetchData(objectLocation)
                         }
