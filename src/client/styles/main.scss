@@ -99,3 +99,18 @@
             font-weight: bolder;
         }
     }
+    
+    .cardgrid {
+        display: flex;
+        flex-direction: row;
+        // justify-content: space-around;
+        .imagepart {
+            border: 2px solid black;
+            // height: 100%;
+            background-color: coral;
+        }
+        .infopart {
+            text-align: center;
+            height: 100%;
+        }
+    }
