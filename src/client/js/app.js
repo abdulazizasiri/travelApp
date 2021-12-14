@@ -14,6 +14,11 @@ function fetchData(data) {
     let tripWeatherAir = document.getElementsByClassName("trip_weather_air")[0] //High - 46, Low - 35
     let genrealTripInfo = document.createElement("P")
     let tripGeneralWeatherStatus = document.getElementsByClassName("trip_general_weather")[0] // Mostly Cloudy throughout the day
+    let buttonContainer = document.createElement("DIV")
+    let removeButton = document.createElement("BUTTON")
+    buttonContainer.classList.add("changeBtn")
+    removeButton.innerText = "Remove Trip"
+    buttonContainer.appendChild(removeButton)
 
     let alltrips = document.getElementsByClassName("trips")[0]
     let tripCard = document.getElementsByClassName('cardgrid')[0]
@@ -26,6 +31,7 @@ function fetchData(data) {
         newImg.classList.add("imagepart")
             // Not appended
 
+        tripCard.appendChild(newImg)
         console.log("Image Data " + (dataImage.hits[0].webformatURL))
     })
     let tempResult = getWeatherInfoRelated(data.lat, data.lng, data.weatherKey)
@@ -33,12 +39,37 @@ function fetchData(data) {
         // dayasDiff
         // tripDate.innerHTML = `Departing : ${data.tripDate}`
         tripNewDate.innerHTML = `Departing : ${data.tripDate}`
-        tripNewDate.classList.add("")
-        tripLocation.innerHTML = `My trip to ${data.city}, ${data.country}`
-        remaingDays.innerHTML = `${data.city}, ${data.country} is ${data.dayasDiff} days away`
+        tripNewDate.classList.add("trip_date_fet")
+        infoPart.appendChild(tripNewDate)
 
-        tripWeatherAir.innerHTML = `High - ${weatherData.data[0].app_max_temp}, Low - ${weatherData.data[0].app_min_temp}`
-        tripGeneralWeatherStatus.innerHTML = `${weatherData.data[0].weather.description}`
+        // tripLocation.innerHTML = `My trip to ${data.city}, ${data.country}`
+        tripCity.innerHTML = `My trip to ${data.city}, ${data.country}`
+        tripCity.classList.add("trip_city")
+        infoPart.appendChild(tripCity)
+
+        infoPart.appendChild(buttonContainer)
+
+        // remaingDays.innerHTML = `${data.city}, ${data.country} is ${data.dayasDiff} days away`
+        tripNewRemDays.innerHTML = `${data.city}, ${data.country} is ${data.dayasDiff} days away`
+        tripNewRemDays.classList.add('trip_rem_days')
+        infoPart.appendChild(tripNewRemDays)
+
+        // tripWeatherAir.innerHTML = `High - ${weatherData.data[0].app_max_temp}, Low - ${weatherData.data[0].app_min_temp}`
+
+        tripNewWeather.innerHTML = `High - ${weatherData.data[0].app_max_temp}, Low - ${weatherData.data[0].app_min_temp}`
+        tripNewWeather.classList.add("trip_weather_air")
+        infoPart.appendChild(tripNewWeather)
+
+        // tripGeneralWeatherStatus.innerHTML = `${weatherData.data[0].weather.description}`
+        genrealTripInfo.innerHTML = `${weatherData.data[0].weather.description}`
+        genrealTripInfo.classList.add("trip_general_weather")
+        infoPart.appendChild(genrealTripInfo)
+
+
+        tripCard.appendChild(infoPart)
+
+        alltrips.appendChild(tripCard)
+
         console.log(weatherData.data)
     })
 }
