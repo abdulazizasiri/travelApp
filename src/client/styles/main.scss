@@ -3,19 +3,27 @@
     // }
     .trips {
         width: 100%;
-        background-color: rgb(237, 154, 148);
-        height: 500px;
+        background-color: rgb(199, 159, 156);
+        height: 100vh;
         .cardgrid {
+            border: 1px solid black;
+            ;
             display: grid;
             grid-template-areas: "img img img img info info info info";
             .imagepart {
                 grid-area: img;
+                width: 100%;
                 background-color: yellow;
                 height: 500px;
+                background-repeat: no-repeat;
+                background-size: cover;
             }
             .infopart {
                 text-align: center;
                 grid-area: info;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
                 // background-color: rgb(55, 0, 255);
                 height: 500px;
                 button {
@@ -24,16 +32,11 @@
                     text-align: center;
                     font-size: 15px;
                     cursor: pointer;
-                    // border-radius: 25px;
-                    // ;
-                    border: 2px solid white;
+                    border-radius: 25px;
+                    border: 2px solid brown;
                     cursor: pointer;
-                    background: transparent;
-                    // back
+                    background: white;
                 }
-                // small {
-                //     display: block;
-                // }
             }
         }
     }
