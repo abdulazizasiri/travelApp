@@ -2,7 +2,8 @@
  // import { travelImage } from "./media/travelimage"
  import "./styles/header.scss"
  import "./styles/main.scss"
-
+ import "./styles/modal.scss"
+ import "./styles/footer.scss"
  export {
      showPopup
  }
