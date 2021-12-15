@@ -1,3 +1,7 @@
+function createUI() {
+
+}
+
 function fetchData(data) {
     console.log("DATA " + JSON.stringify(data))
     let newImg = document.createElement("DIV")
@@ -13,7 +17,7 @@ function fetchData(data) {
     let tripNewWeather = document.createElement("P")
     let tripWeatherAir = document.getElementsByClassName("trip_weather_air")[0] //High - 46, Low - 35
     let genrealTripInfo = document.createElement("P")
-    let tripGeneralWeatherStatus = document.getElementsByClassName("trip_general_weather")[0] // Mostly Cloudy throughout the day
+        // let tripGeneralWeatherStatus = document.getElementsByClassName("trip_general_weather")[0] // Mostly Cloudy throughout the day
     let buttonContainer = document.createElement("DIV")
     let removeButton = document.createElement("BUTTON")
     buttonContainer.classList.add("changeBtn")
