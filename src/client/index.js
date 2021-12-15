@@ -4,6 +4,8 @@
  import "./styles/main.scss"
  import "./styles/modal.scss"
  import "./styles/footer.scss"
+
  export {
-     showPopup
+     showPopup,
+
  }

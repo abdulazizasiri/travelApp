@@ -35,6 +35,11 @@ app.get("/", function(req, res) {
     res.sendFile(path.resolve('dist/index.html'))
 })
 
+app.get("/allData", function(req, res) {
+    console.log("All data here")
+    return res.json(allResults)
+})
+
 app.get("/getAllKeys", function(req, res) {
         let keyObj = {
             "weather_key": weatherbitandImageKeys.application_id,
@@ -49,8 +54,9 @@ app.post("/new_trip", function(req, res) {
         // 
         console.log("REQ " + JSON.stringify(req.body))
         console.log("Type " + typeof req.body)
+        console.log("Length: " + allResults.length)
         allResults.push(req.body)
-        return res.json({ "code": 200 })
+        return res.json(allResults)
     })
     // delete
 app.delete("/:id", function(req, res) {
