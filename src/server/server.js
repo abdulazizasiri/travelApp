@@ -30,7 +30,10 @@ console.log("Api key 2 " + weatherbitandImageKeys.pixaby_key)
 console.log("Api key 3 " + weatherbitandImageKeys.geo_userName)
 
 app.get("/", function(req, res) {
-    res.sendFile(path.resolve('dist/index.html'))
+    console.log("Hello")
+    console.log("HELLO")
+    return res.json({ "id": 200 })
+        // res.sendFile(path.resolve('dist/index.html'))
 })
 
 app.get("/getAllKeys", function(req, res) {
