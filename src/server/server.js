@@ -32,21 +32,27 @@ console.log("Api key 3 " + weatherbitandImageKeys.geo_userName)
 app.get("/", function(req, res) {
     console.log("Hello")
     console.log("HELLO")
-    return res.json({ "id": 200 })
-        // res.sendFile(path.resolve('dist/index.html'))
+    res.sendFile(path.resolve('dist/index.html'))
 })
 
 app.get("/getAllKeys", function(req, res) {
-    let keyObj = {
-        "weather_key": weatherbitandImageKeys.application_id,
-        "pixabay_key": weatherbitandImageKeys.pixaby_key,
-        "geo_userName": weatherbitandImageKeys.geo_userName,
-        "code": 200
-    }
-    return res.json(keyObj)
-})
-
-// 
+        let keyObj = {
+            "weather_key": weatherbitandImageKeys.application_id,
+            "pixabay_key": weatherbitandImageKeys.pixaby_key,
+            "geo_userName": weatherbitandImageKeys.geo_userName,
+            "code": 200
+        }
+        return res.json(keyObj)
+    })
+    // post 
+app.post("/new_trip", function(req, res) {
+        // 
+        console.log("REQ " + JSON.stringify(req.body))
+        console.log("Type " + typeof req.body)
+        allResults.push(req.body)
+        return res.json({ "code": 200 })
+    })
+    // delete
 app.delete("/:id", function(req, res) {
     let id = req.query.id
     console.log("the id to be deleted: " + id)

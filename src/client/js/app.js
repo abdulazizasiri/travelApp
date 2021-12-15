@@ -73,7 +73,6 @@ function fetchData(data) {
         genrealTripInfo.classList.add("trip_general_weather")
         infoPart.appendChild(genrealTripInfo)
 
-
         tripCard.appendChild(infoPart)
 
         alltrips.appendChild(tripCard)
@@ -82,12 +81,34 @@ function fetchData(data) {
 
         // Add data to the server
         let result = postData(data);
+        result.then(function(data) {
+            console.log("DATA CAME FROM POSTING " + JSON.stringify(data))
+        })
     })
 }
 
 async function postData(data) {
     // Stop here till the end of the meeting
+    let url = "http://localhost:8000/new_trip"
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    };
+    try {
+        const fetchResponse = await fetch(url, settings);
+        const data = await fetchResponse.json();
+        return data;
+    } catch (e) {
+        return e;
+    }
+
 }
+
+
 async function getWeatherInfoRelated(lat, lng, tempkey) {
     console.log("Lat: " + lat)
     console.log("Long: " + lng)
