@@ -18,6 +18,10 @@ function fetchData(data) {
     let removeButton = document.createElement("BUTTON")
     buttonContainer.classList.add("changeBtn")
     removeButton.innerText = "Remove Trip"
+    removeButton.id = data.id
+    removeButton.addEventListener('click', function() {
+        alert("Are you sure you want to delet this trip with id " + removeButton.id)
+    })
     buttonContainer.appendChild(removeButton)
 
     let alltrips = document.getElementsByClassName("trips")[0]

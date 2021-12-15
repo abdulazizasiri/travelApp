@@ -113,7 +113,9 @@ function showPopup(event, code) {
                             console.log("Long Found " + lng)
                                 // "weather_key": weatherbitandImageKeys.application_id,
                                 // "pixabay_key":
-                            let objectLocation = { tripDate: formedDate, city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
+                            let uniqId = 'id' + (new Date()).getTime();
+                            console.log("UNIQUE IDDD " + uniqId)
+                            let objectLocation = { id: uniqId, tripDate: formedDate, city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
                             console.log("Objct Location " + JSON.stringify(objectLocation))
                             fetchData(objectLocation)
                         }
