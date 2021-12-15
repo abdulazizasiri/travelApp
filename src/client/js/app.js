@@ -79,7 +79,14 @@ function fetchData(data) {
         alltrips.appendChild(tripCard)
 
         console.log(weatherData.data)
+
+        // Add data to the server
+        let result = postData(data);
     })
+}
+
+async function postData(data) {
+    // Stop here till the end of the meeting
 }
 async function getWeatherInfoRelated(lat, lng, tempkey) {
     console.log("Lat: " + lat)
