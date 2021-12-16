@@ -2,9 +2,23 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.headlogos {
-    margin-left: 200px;
-    margin-bottom: 50px;
+// @import 'main-small.scss' screen and (min-width: 549px) and (max-width: 768px);
+// @import 'small.css' screen and (min-width: 279px) and (max-width: 548px);
+// body {
+//     margin: 0;
+//     padding: 0;
+// }
+$breakpoint-group-mobile: 350px;
+// max-width: 768px
+$breakpoint-tablet: 768px;
+// @media (min-width: $breakpoint-group-mobile) {
+//     body {
+//         background: red;
+//     }
+// }
+.headertrip {
+    display: flex;
+    justify-content: space-around;
 }
 
 .headertrip {
@@ -31,5 +45,20 @@
     span {
         font-size: 20px;
         font-weight: bolder;
+    }
+}
+
+@media screen and (min-width: 249px) and (max-width: 768px) {
+    // All the stuff
+    .headlogos {
+        margin-left: 150px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: $breakpoint-tablet) {
+    .headlogos {
+        margin-left: 200px;
+        margin-bottom: 50px;
     }
 }

@@ -1,6 +1,51 @@
     // * {
     //     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     // }
+    @media screen and (min-width: 249px) and (max-width: 768px) {
+        // All the stuff
+        .trips {
+            width: 100%;
+            background-color: rgb(199, 159, 156);
+            display: flex;
+            flex-direction: column;
+            // height: 100%;
+            .cardgrid {
+                border: 1px solid black;
+                // background-color: red;
+                ;
+                display: grid;
+                // flex-direction: column;
+                height: 100%;
+                margin-bottom: 20px;
+                grid-template-areas: "img img img img" "info info info info info info info info";
+                .imagepart {
+                    // grid-area: img;
+                    // width: 100%;
+                    // background-color: yellow;
+                    // height: 500px;
+                    // background-repeat: no-repeat;
+                    // background-size: cover;
+                }
+                .infopart {
+                    text-align: center;
+                    grid-area: info;
+                    // height: 500px;
+                    button {
+                        width: 150px;
+                        height: 30px;
+                        text-align: center;
+                        font-size: 15px;
+                        cursor: pointer;
+                        border-radius: 25px;
+                        border: 2px solid brown;
+                        cursor: pointer;
+                        background: white;
+                    }
+                }
+            }
+        }
+    }
+    
     .trips {
         width: 100%;
         background-color: rgb(199, 159, 156);
@@ -84,15 +129,3 @@
     //         height: 100%;
     //     }
     // }
-    .footer {
-        background-color: gray;
-        position: absolute;
-        bottom: 0;
-        font-size: 20px;
-        ;
-        height: 50px;
-        color: white;
-        width: 100%;
-        text-align: center;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }

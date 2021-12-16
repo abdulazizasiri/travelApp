@@ -8,6 +8,7 @@
 //         button.disabled = false
 //     }
 // })
+import { validURL, validateLocalhost } from '../js/urlChecker'
 
 import { fetchData } from "../js/app"
 
@@ -75,6 +76,10 @@ function showPopup(event, code) {
 
             result.innerText = ''
             let url = 'http://localhost:8000/getAllKeys'
+            if (!validateLocalhost(url)) {
+                console.log("Ivalid url")
+                return
+            }
             let geoNamesURL = ""
             let results = getKeys(url)
 
@@ -87,6 +92,7 @@ function showPopup(event, code) {
             }
             results.then(function(data) {
                 geoNamesURL = `http://api.geonames.org/searchJSON?q=${inputField.value}&paris&maxRows=10&username=${data.geo_userName}`
+
                 console.log("The data we got " + (data.weatherKey))
                 console.log("URL to visi " + geoNamesURL)
                 let geoNameResult = getGeoName(geoNamesURL)
@@ -151,6 +157,10 @@ function showPopup(event, code) {
         // Stop here till the end of the meeting
 
         let url = "http://localhost:8000/new_trip"
+        if (!validateLocalhost(url)) {
+            console.log("Ivalid url " + url)
+            return
+        }
         const settings = {
             method: 'POST',
             headers: {
@@ -191,7 +201,10 @@ function showPopup(event, code) {
 }
 async function getImageRelated(city, imageKey) {
     let url = `https://pixabay.com/api/?key=${imageKey}&q=${city}&image_type=photo&pretty=true`
-
+    if (!validURL(url)) {
+        console.log("Ivalid url " + url)
+        return
+    }
     console.log("URL Passed " + url)
 
     const response = await fetch(url);
@@ -213,7 +226,11 @@ async function getWeatherInfoRelated(lat, lng, tempkey) {
     console.log("Long: " + lng)
     console.log("KEEEEEEY " + tempkey)
     let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${tempkey}`
+    if (!validURL(url)) {
+        console.log("Ivalid url " + url)
 
+        return
+    }
     console.log("url   Yemp " + url)
 
     const response = await fetch(url);

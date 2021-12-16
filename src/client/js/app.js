@@ -1,7 +1,11 @@
+import { validateLocalhost } from '../js/urlChecker'
 async function fetallElements() {
 
-
     let url = `http://localhost:8000/allData`
+    if (!validateLocalhost(url)) {
+        console.log("Invalid url")
+        return
+    }
 
     const response = await fetch(url);
 
@@ -15,6 +19,10 @@ async function fetallElements() {
 }
 async function deleteATrip(id) {
     let url = `http://localhost:8000/trip`
+    if (!validateLocalhost(url)) {
+        console.log("Invalid url")
+        return
+    }
     const settings = {
         method: 'DELETE',
         headers: {
