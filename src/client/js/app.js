@@ -1,121 +1,29 @@
-function createUI() {
-    alert("HELLO")
-}
-
 async function fetallElements() {
-    // console.log("Lat: " + lat)
-    // console.log("Long: " + lng)
-    // console.log("KEEEEEEY " + tempkey)
+
 
     let url = `http://localhost:8000/allData`
-
-    console.log("url   Yemp " + url)
 
     const response = await fetch(url);
 
     try {
         const newData = await response.json();
-        // console.log("Data came " + JSON.stringify(newData))
         return newData
     } catch (error) {
         console.log("error", error);
-        // appropriately handle the error
     }
     console.log("data passed " + JSON.stringify(data));
 }
-let newImg = document.createElement("DIV")
-let imageElement = document.getElementsByClassName("imagepart")[0]
-let tripCity = document.createElement("H3")
-
-let tripLocation = document.getElementsByClassName("trip_city")[0] // My trip to Paris, France
-let tripNewDate = document.createElement("H3")
-
-let tripDate = document.getElementsByClassName("trip_date_fet")[0] // Departing: 02/12/2020
-let tripNewRemDays = document.createElement("P")
-let remaingDays = document.getElementsByClassName("trip_rem_days")[0] // Paris, France is 220 days away
-let tripNewWeather = document.createElement("P")
-let tripWeatherAir = document.getElementsByClassName("trip_weather_air")[0] //High - 46, Low - 35
-let genrealTripInfo = document.createElement("P")
-    // let tripGeneralWeatherStatus = document.getElementsByClassName("trip_general_weather")[0] // Mostly Cloudy throughout the day
-let buttonContainer = document.createElement("DIV")
-let removeButton = document.createElement("BUTTON")
-buttonContainer.classList.add("changeBtn")
-removeButton.innerText = "Remove Trip"
-
-function fetchData(data) {
-    // Fetch whatever in the server
-    // Stored what we got
-    // alert("AAA")
-
-    console.log("DATA " + JSON.stringify(data))
-
-    removeButton.id = data.id
-    removeButton.addEventListener('click', function() {
-        alert("Are you sure you want to delet this trip with id " + removeButton.id)
-    })
-    buttonContainer.appendChild(removeButton)
-
-    let alltrips = document.getElementsByClassName("trips")[0]
-        // let tripCard = document.getElementsByClassName('cardgrid')[0]
-    let tripCard = document.createElement("DIV")
-    tripCard.classList.add("cardgrid")
-
-    // let infoPart = document.getElementsByClassName("infopart")[0]
-    let infoPart = document.createElement("DIV")
-    infoPart.classList.add("infopart")
-
-    let imageResult = getImageRelated(data.city, data.imageKey) //
-    imageResult.then(function(dataImage) {
-        data.imageURL = dataImage.hits[0].webformatURL
-        newImg.style.backgroundImage = `url(${dataImage.hits[0].webformatURL})`
-            // imageElement.style.backgroundImage = `url(${dataImage.hits[0].webformatURL})`
-        newImg.classList.add("imagepart")
-            // Not appended
-
-        tripCard.appendChild(newImg)
-        console.log("Image Data " + (dataImage.hits[0].webformatURL))
-    })
-    let tempResult = getWeatherInfoRelated(data.lat, data.lng, data.weatherKey)
-    tempResult.then(function(weatherData) {
-        // dayasDiff
-        // tripDate.innerHTML = `Departing : ${data.tripDate}`
-
-        // tripWeatherAir.innerHTML = `High - ${weatherData.data[0].app_max_temp}, Low - ${weatherData.data[0].app_min_temp}`
-
-        tripNewWeather.innerHTML = `High - ${weatherData.data[0].app_max_temp}, Low - ${weatherData.data[0].app_min_temp}`
-        tripNewWeather.classList.add("trip_weather_air")
-        infoPart.appendChild(tripNewWeather)
-
-        // tripGeneralWeatherStatus.innerHTML = `${weatherData.data[0].weather.description}`
-        genrealTripInfo.innerHTML = `${weatherData.data[0].weather.description}`
-        genrealTripInfo.classList.add("trip_general_weather")
-        infoPart.appendChild(genrealTripInfo)
-
-        tripCard.appendChild(infoPart)
-
-        alltrips.appendChild(tripCard)
-
-        console.log(weatherData.data)
-
-        // Add data to the server
-        let result = postData(data);
-        result.then(function(data) {
-            console.log("DATA CAME FROM POSTING " + JSON.stringify(data))
-        })
-    })
-}
-
-async function postData(data) {
-    // Stop here till the end of the meeting
-
-    let url = "http://localhost:8000/new_trip"
+async function deleteATrip(id) {
+    let url = `http://localhost:8000/trip`
     const settings = {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+
+        body: JSON.stringify({ "id": id })
+
     };
     try {
         const fetchResponse = await fetch(url, settings);
@@ -127,53 +35,86 @@ async function postData(data) {
 
 }
 
+function fetchData(data) {
 
-async function getWeatherInfoRelated(lat, lng, tempkey) {
-    console.log("Lat: " + lat)
-    console.log("Long: " + lng)
-    console.log("KEEEEEEY " + tempkey)
-    let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${tempkey}`
-
-    console.log("url   Yemp " + url)
-
-    const response = await fetch(url);
-
-    try {
-        const newData = await response.json();
-        // console.log("Data came " + JSON.stringify(newData))
-        return newData
-    } catch (error) {
-        console.log("error", error);
-        // appropriately handle the error
-    }
-    console.log("data passed " + JSON.stringify(data));
-}
-async function getImageRelated(city, imageKey) {
-    let url = `https://pixabay.com/api/?key=${imageKey}&q=${city}&image_type=photo&pretty=true`
-
-    console.log("URL Passed " + url)
-
-    const response = await fetch(url);
-
-    try {
-        const newData = await response.json();
-        // console.log("Data came " + JSON.stringify(newData))
-        return newData
-    } catch (error) {
-        console.log("error", error);
-        // appropriately handle the error
-    }
-    console.log("data passed " + JSON.stringify(data));
-
-}
-let home = fetallElements();
-home.then(function(data) {
+    let alltrips = document.getElementsByClassName("trips")[0]
     data.forEach(function(item) {
-        console.log("All Data recieved " + JSON.stringify(item))
+        let newImg = document.createElement("DIV")
+        let tripCity = document.createElement("H3")
+        let tripNewDate = document.createElement("H3")
+        let tripNewRemDays = document.createElement("P")
+        let tripNewWeather = document.createElement("P")
+        let genrealTripInfo = document.createElement("P")
+        let buttonContainer = document.createElement("DIV")
+        let removeButton = document.createElement("BUTTON")
+        buttonContainer.classList.add("changeBtn")
 
+        removeButton.innerText = "Remove Trip"
+        removeButton.id = item.id
+        removeButton.addEventListener('click', function() {
+            // alert("Are you sure you want to delet this trip with id " + removeButton.id)
+            let itemsAfterDeleting = deleteATrip(removeButton.id)
+            itemsAfterDeleting.then(function(item) {
+                if (confirm('Are you sure you want to Delete this trip?')) {
+                    // Save it!
+                    // console.log('Thing was saved to the database.');
+                    fetchData(item)
+                    location.reload();
+                } else {
+                    // Do nothing!
+                    console.log('Thing was not saved to the database.');
+                }
+                console.log("DELETED " + JSON.stringify(item))
+
+            })
+        })
+        buttonContainer.appendChild(removeButton)
+
+        let tripCard = document.createElement("DIV")
+        tripCard.classList.add("cardgrid")
+
+        let infoPart = document.createElement("DIV")
+
+        tripCity.innerHTML = `My trip to ${item.city}, ${item.country}`
+        tripCity.classList.add("trip_city")
+        infoPart.appendChild(tripCity)
+        tripNewDate.innerHTML = `Departing : ${item.tripDate}`
+
+        tripNewDate.classList.add("trip_date_fet")
+        infoPart.appendChild(tripNewDate)
+
+        infoPart.appendChild(buttonContainer)
+
+
+        tripNewRemDays.innerHTML = `${item.city}, ${item.country} is ${item.dayasDiff} days away`
+        tripNewRemDays.classList.add('trip_rem_days')
+        infoPart.appendChild(tripNewRemDays)
+        infoPart.classList.add("infopart")
+        newImg.classList.add("imagepart")
+
+        newImg.style.backgroundImage = `url(${item.imageURL})`
+        tripCard.appendChild(newImg)
+
+        tripNewWeather.innerHTML = `High - ${item.tripNewWeatherMax}, Low - ${item.tripNewWeatherMin}`
+        tripNewWeather.classList.add("trip_weather_air")
+        infoPart.appendChild(tripNewWeather)
+
+        genrealTripInfo.innerHTML = `${item.weatherDescription}`
+        genrealTripInfo.classList.add("trip_general_weather")
+        infoPart.appendChild(genrealTripInfo)
+
+        tripCard.appendChild(infoPart)
+
+        alltrips.appendChild(tripCard)
 
     })
+}
+
+let home = fetallElements();
+home.then(function(data) {
+    fetchData(data)
 })
+
 export {
     fetchData
 }

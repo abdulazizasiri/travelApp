@@ -53,14 +53,11 @@ function showPopup(event, code) {
             result.style.color = "red"
         } else {
             var today = new Date()
-                // const date1 = new Date('7/13/2010');
-                // 
+
             var checkCurrent = today.getFullYear() + '-' + today.getDate() + '-' + (today.getMonth() + 1);
 
             var currentDate = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
-            // console.log("Current date " + currentDate)
-            // console.log("Entered data " + dateInput.value)
-            // daysDiff = dateInput.value - currentDate
+
             var enteredDate = new Date(dateInput.value)
                 // console.log("Entered date " + enteredDate)
             let formedDate = (enteredDate.getMonth() + 1) + '/' + enteredDate.getDate() + '/' + enteredDate.getFullYear();
@@ -75,10 +72,7 @@ function showPopup(event, code) {
             console.log(diffTime + " milliseconds");
             console.log(diffDays + " days");
             daysDiff = diffDays
-                // const diffTime = Math.abs(formedDate - currentDate);
-                // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                // console.log(diffTime + " milliseconds");
-                // console.log(diffDays + " days");
+
             result.innerText = ''
             let url = 'http://localhost:8000/getAllKeys'
             let geoNamesURL = ""
@@ -97,31 +91,49 @@ function showPopup(event, code) {
                 console.log("URL to visi " + geoNamesURL)
                 let geoNameResult = getGeoName(geoNamesURL)
                 geoNameResult.then(function(nameRecieved) {
-                        if (nameRecieved.totalResultsCount === 0) {
-                            result.innerText = "Could not find the destination, please try something else"
-                            result.style.marginBottom = "5px"
-                            result.style.color = "orange"
-                        } else {
-                            // Let's bring the other data
-                            const city = nameRecieved.geonames[0].toponymName
-                            const lat = nameRecieved.geonames[0].lat
-                            const lng = nameRecieved.geonames[0].lng
-                            const country = nameRecieved.geonames[0].countryName
-                            console.log("City Found " + city)
-                            console.log("Country Found " + country)
-                            console.log("LAt Found " + lat)
-                            console.log("Long Found " + lng)
-                                // "weather_key": weatherbitandImageKeys.application_id,
-                                // "pixabay_key":
-                            let uniqId = 'id' + (new Date()).getTime();
-                            console.log("UNIQUE IDDD " + uniqId)
-                            let objectLocation = { id: uniqId, tripDate: formedDate, city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
-                            console.log("Objct Location " + JSON.stringify(objectLocation))
-                            fetchData(objectLocation)
-                        }
-                    })
-                    // validateDate()
+                    if (nameRecieved.totalResultsCount === 0) {
+                        result.innerText = "Could not find the destination, please try something else"
+                        result.style.marginBottom = "5px"
+                        result.style.color = "orange"
+                    } else {
+                        const city = nameRecieved.geonames[0].toponymName
+                        const lat = nameRecieved.geonames[0].lat
+                        const lng = nameRecieved.geonames[0].lng
+                        const country = nameRecieved.geonames[0].countryName
+                        console.log("City Found " + city)
+                        console.log("Country Found " + country)
+                        console.log("LAt Found " + lat)
+                        console.log("Long Found " + lng)
 
+                        let uniqId = 'id' + (new Date()).getTime();
+                        console.log("UNIQUE IDDD " + uniqId)
+                        let objectLocation = { id: uniqId, tripDate: formedDate, city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
+
+                        let imageResult = getImageRelated(city, data.pixabay_key) //
+                        imageResult.then(function(dataImage) {
+                            objectLocation.imageURL = dataImage.hits[0].webformatURL
+
+                        })
+                        let tempResult = getWeatherInfoRelated(lat, lng, data.weather_key)
+                        tempResult.then(function(weatherData) {
+
+                            objectLocation.tripNewWeatherMax = weatherData.data[0].app_max_temp
+                            objectLocation.tripNewWeatherMin = weatherData.data[0].app_min_temp
+
+                            objectLocation.weatherDescription = weatherData.data[0].weather.description
+
+                            let result = postData(objectLocation);
+                            result.then(function(data) {
+                                console.log("DATA CAME FROM POSTING " + JSON.stringify(data))
+                                fetchData(data)
+                            })
+                        })
+                        document.getElementsByClassName("modal-bg")[0].classList.remove("bg-active")
+
+                        console.log("Objct Location " + JSON.stringify(objectLocation))
+
+                    }
+                })
             })
         }
 
@@ -131,9 +143,32 @@ function showPopup(event, code) {
 
     }
 
-    function validateDate(data) {
+    // function validateDate(data) {
+
+    // }
+
+    async function postData(data) {
+        // Stop here till the end of the meeting
+
+        let url = "http://localhost:8000/new_trip"
+        const settings = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        };
+        try {
+            const fetchResponse = await fetch(url, settings);
+            const data = await fetchResponse.json();
+            return data;
+        } catch (e) {
+            return e;
+        }
 
     }
+
     async function getGeoName(url) {
         console.log("URL Passed " + url)
             // if (!validateLocalhost(url)) {
@@ -154,6 +189,46 @@ function showPopup(event, code) {
 
     }
 }
+async function getImageRelated(city, imageKey) {
+    let url = `https://pixabay.com/api/?key=${imageKey}&q=${city}&image_type=photo&pretty=true`
+
+    console.log("URL Passed " + url)
+
+    const response = await fetch(url);
+
+    try {
+        const newData = await response.json();
+        // console.log("Data came " + JSON.stringify(newData))
+        return newData
+    } catch (error) {
+        console.log("error", error);
+        // appropriately handle the error
+    }
+    console.log("data passed " + JSON.stringify(data));
+
+}
+
+async function getWeatherInfoRelated(lat, lng, tempkey) {
+    console.log("Lat: " + lat)
+    console.log("Long: " + lng)
+    console.log("KEEEEEEY " + tempkey)
+    let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&key=${tempkey}`
+
+    console.log("url   Yemp " + url)
+
+    const response = await fetch(url);
+
+    try {
+        const newData = await response.json();
+        // console.log("Data came " + JSON.stringify(newData))
+        return newData
+    } catch (error) {
+        console.log("error", error);
+        // appropriately handle the error
+    }
+    console.log("data passed " + JSON.stringify(data));
+}
+
 async function getKeys(url) {
     console.log("URL Passed " + url)
         // if (!validateLocalhost(url)) {

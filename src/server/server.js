@@ -59,9 +59,18 @@ app.post("/new_trip", function(req, res) {
         return res.json(allResults)
     })
     // delete
-app.delete("/:id", function(req, res) {
-    let id = req.query.id
-    console.log("the id to be deleted: " + id)
+app.delete("/trip", function(req, res) {
+    let id = req.body.id
+    let newItems = allResults.filter(function(item) {
+        return item.id != id
+    })
+    allResults = newItems
+
+    console.log("After deleting " + newItems.length)
+
+    console.log("ITem to be deleted " + req.body.id)
+        // console.log("the id to be deleted: " + id)
+    return res.json(allResults)
 })
 
 

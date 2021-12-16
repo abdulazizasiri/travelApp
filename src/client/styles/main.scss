@@ -16,7 +16,8 @@
             grid-template-areas: "img img img img info info info info";
             .imagepart {
                 grid-area: img;
-                width: 100%;
+                // width: 100%;
+                width: 800px;
                 background-color: yellow;
                 height: 500px;
                 background-repeat: no-repeat;
