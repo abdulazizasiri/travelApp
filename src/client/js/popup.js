@@ -82,8 +82,8 @@ function showPopup(event, code) {
             }
             let geoNamesURL = ""
             let results = getKeys(url)
-
-            if (dateInput.value < checkCurrent) {
+                // var inputDate = new Date()
+            if (enteredDate.setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)) {
                 console.log("The date is not proper")
                 result.innerText = "The date is not proper, please choose future dates"
                 result.style.marginBottom = "5px"
