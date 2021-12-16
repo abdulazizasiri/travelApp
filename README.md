@@ -7,7 +7,7 @@ The Api I used
 
   - GeoName API
   - Pixabay API
-  - WeatherBit AP(
+  - WeatherBit API
 
 
 ### Technoligies used
