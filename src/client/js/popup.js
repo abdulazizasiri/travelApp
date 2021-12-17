@@ -10,8 +10,10 @@
 // })
 import { validURL, validateLocalhost } from '../js/urlChecker'
 
-import { fetchData } from "../js/app"
+import { updateUI } from "../js/app"
 
+// This method shows the modal popup for the user to enter the trip and date based on a code. 
+// code 1: open the popup , code2: close the popup, code 3: get the data entered in the popup
 function showPopup(event, code) {
     let button = document.getElementById("add_City")
     let dateInput = document.getElementById("trip_date")
@@ -131,7 +133,7 @@ function showPopup(event, code) {
                             let result = postData(objectLocation);
                             result.then(function(data) {
                                 console.log("DATA CAME FROM POSTING " + JSON.stringify(data))
-                                fetchData(data)
+                                updateUI(data)
                             })
                         })
                         document.getElementsByClassName("modal-bg")[0].classList.remove("bg-active")
@@ -149,10 +151,7 @@ function showPopup(event, code) {
 
     }
 
-    // function validateDate(data) {
-
-    // }
-
+    // This method post the data regarding the trip in the server: 
     async function postData(data) {
         // Stop here till the end of the meeting
 
@@ -179,12 +178,10 @@ function showPopup(event, code) {
 
     }
 
+    // Get the name of the city
     async function getGeoName(url) {
         console.log("URL Passed " + url)
-            // if (!validateLocalhost(url)) {
-            //     console.log("Not valid url")
-            //     return
-            // }
+
         const response = await fetch(url);
 
         try {
@@ -199,6 +196,8 @@ function showPopup(event, code) {
 
     }
 }
+
+// Get an image related to the city
 async function getImageRelated(city, imageKey) {
     let url = `https://pixabay.com/api/?key=${imageKey}&q=${city}&image_type=photo&pretty=true`
     if (!validURL(url)) {
@@ -220,7 +219,7 @@ async function getImageRelated(city, imageKey) {
     console.log("data passed " + JSON.stringify(data));
 
 }
-
+// Get the weather data.
 async function getWeatherInfoRelated(lat, lng, tempkey) {
     console.log("Lat: " + lat)
     console.log("Long: " + lng)

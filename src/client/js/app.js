@@ -1,4 +1,5 @@
 import { validateLocalhost } from '../js/urlChecker'
+// This method gets all the trips info from the server
 async function fetallElements() {
 
     let url = `http://localhost:8000/allData`
@@ -17,6 +18,8 @@ async function fetallElements() {
     }
     console.log("data passed " + JSON.stringify(data));
 }
+
+// This method deletes a trip from a server
 async function deleteATrip(id) {
     let url = `http://localhost:8000/trip`
     if (!validateLocalhost(url)) {
@@ -43,7 +46,8 @@ async function deleteATrip(id) {
 
 }
 
-function fetchData(data) {
+// This method created and update the UI
+function updateUI(data) {
 
     let alltrips = document.getElementsByClassName("trips")[0]
     data.forEach(function(item) {
@@ -66,7 +70,7 @@ function fetchData(data) {
                 if (confirm('Are you sure you want to Delete this trip?')) {
                     // Save it!
                     // console.log('Thing was saved to the database.');
-                    fetchData(item)
+                    updateUI(item)
                     location.reload();
                 } else {
                     // Do nothing!
@@ -120,9 +124,9 @@ function fetchData(data) {
 
 let home = fetallElements();
 home.then(function(data) {
-    fetchData(data)
+    updateUI(data)
 })
 
 export {
-    fetchData
+    updateUI
 }
