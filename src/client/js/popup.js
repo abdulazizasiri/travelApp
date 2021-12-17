@@ -103,6 +103,7 @@ function showPopup(event, code) {
                         result.innerText = "Could not find the destination, please try something else"
                         result.style.marginBottom = "5px"
                         result.style.color = "orange"
+                        return ; 
                     } else {
                         const city = nameRecieved.geonames[0].toponymName
                         const lat = nameRecieved.geonames[0].lat
@@ -115,13 +116,26 @@ function showPopup(event, code) {
 
                         let uniqId = 'id' + (new Date()).getTime();
                         console.log("UNIQUE IDDD " + uniqId)
-                        let objectLocation = { id: uniqId, tripDate: formedDate, city: city, lat: lat, lng: lng, country: country, imageKey: data.pixabay_key, weatherKey: data.weather_key, dayasDiff: daysDiff }
+                        let objectLocation = { id: uniqId, tripDate: formedDate, city: city, lat: lat, lng: lng, country: country,  weatherKey: data.weather_key, dayasDiff: daysDiff }
 
                         let imageResult = getImageRelated(city, data.pixabay_key) //
+                        
                         imageResult.then(function(dataImage) {
+                            // Here we need to make sur that we have an image, otherwise -> Null 
+                            // `
+                            // console.log("IMAGE API "+JSON.stringify(dataImage))
+                            if (dataImage.total === 0) {
+                                alert(`We couldn't find this ${city} try something else`)
+                                return 
+                            }
                             objectLocation.imageURL = dataImage.hits[0].webformatURL
 
                         })
+
+                      
+                      
+                        
+                        console.log("CONINTUE NO MATTER ")
                         let tempResult = getWeatherInfoRelated(lat, lng, data.weather_key)
                         tempResult.then(function(weatherData) {
 
@@ -130,10 +144,16 @@ function showPopup(event, code) {
 
                             objectLocation.weatherDescription = weatherData.data[0].weather.description
 
+                            if (objectLocation["imageURL"] === undefined){
+                                console.log("No Image Found ")
+                                return
+                            }
                             let result = postData(objectLocation);
                             result.then(function(data) {
                                 console.log("DATA CAME FROM POSTING " + JSON.stringify(data))
+                                console.log("IS IMAGE "+objectLocation["imageURL"] )
                                 updateUI(data)
+                                
                             })
                         })
                         document.getElementsByClassName("modal-bg")[0].classList.remove("bg-active")
@@ -200,6 +220,8 @@ function showPopup(event, code) {
 // Get an image related to the city
 async function getImageRelated(city, imageKey) {
     let url = `https://pixabay.com/api/?key=${imageKey}&q=${city}&image_type=photo&pretty=true`
+    
+    // https://pixabay.com/api/?key=6918616-f8bd1ba5e9c45ac6c1d86e49a&q=mmm&image_type=photo&pretty=true
     if (!validURL(url)) {
         console.log("Ivalid url " + url)
         return
